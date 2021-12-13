@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+  <style>
+    * {
+        margin: 0;
+    }
+    .container {
+        padding: 20px;
+        background-color: #ffffff;
+        font-size: 12px;
+        line-height: 16px;
+        line-spacing: 0px;
+    }
+    h2{
+        padding: 10px 0px;
+    }
+    h3 {
+        padding: 8px 0px;
+    }
+    .line{
+        padding: 10px 50px;
+    }
+    .stack {
+    	max-height: 44px;
+        overflow-y: hidden;
+        background-color: lightpink;
+    }
+    .stack:hover {
+    	max-height: 100%;
+        overflow-y: visible;
+        background-color: lightblue;
+    }
+    .stack .table-responsive {
+        display: none;
+        padding: 10px 20px;
+    }
+    .stack:hover .table-responsive {
+        display: block;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #000;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    table tr{
+        border-bottom:1px solid #000;
+    }
+    th, td {
+      text-align: left;
+      padding: 16px;
+    }
+    tr:nth-child(even) {
+      background-color: lightgreen;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Error occurred</h2>
+        <h3>Server IP: {{server_ip}}</h3>
+        <h3>Traceback</h3>
+        <div>
+            {% for item in stack %}
+            <div class="stack">
+                <pre class="line">{{item.content}}</pre>
+                <div class="table-responsive">
+                  <div class="table">
+                      <thead>
+                        <tr><th>Variable Name</th><th>Value</th></tr>
+                      </thead>
+                      <tbody>
+                        {% for key,value in item.locals.iteritems() %}
+                        <tr><td>{{key}}</td><td>{{value}}</td></tr>
+                        {% endfor %}
+                      </tbody>
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="stack">
+                <pre class="line">{{message}}</pre>
+            </div>
+        </div>
+        <br>
+    </div>
+</body>
+</html>
