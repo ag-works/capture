@@ -1,9 +1,9 @@
 from capture import Capture
 
-from receivers.emailer import EmailReceiver
+from adapters.emailer import EmailAdapter
 
 
-RECEIVER_CONTEXT = {
+EMAIL_ADAPTER_PROPERTIES = {
     'from_email': '<email-address>',
     'recipients': '<email-address>',
 }
@@ -24,7 +24,7 @@ class TestOne(object):
             TestOne.divide(10000, 8)
         except:
             capture = Capture()
-            capture.setup_receiver(EmailReceiver, RECEIVER_CONTEXT)
+            capture.setup_receiver(EmailAdapter, EMAIL_ADAPTER_PROPERTIES)
             capture.register_exception()
 
 

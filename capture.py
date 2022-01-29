@@ -17,7 +17,7 @@ class Capture(object):
     sys.exc_info() => (type(exc_info), exc_info, exc_info.__traceback__)
     """
 
-    def __init__(self, receiver_class=None, receiver_context=None):
+    def __init__(self, adapter_class=None, adapter_context=None):
 
         # Exception related properties
         self.exc_type = None
@@ -27,17 +27,9 @@ class Capture(object):
         # HTML template related properties
         self.template_context = dict()
 
-        # Receiver class and related properties
-        self.receiver_class = receiver_class or ''
-        self.receiver_context = receiver_context or ''
-
-    @staticmethod
-    def get_server_ip():
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        s.close()
-        return ip
+        # Adapter class and related properties
+        self.adapter_class = adapter_class or ''
+        self.adapter_context = adapter_context or ''
 
     def compile(self):
         stack = list()
@@ -65,9 +57,9 @@ class Capture(object):
         self.exc_value = exc_value
         self.exc_tb = exc_tb
 
-    def setup_receiver(self, receiver_class, context):
-        self.receiver_class = receiver_class
-        self.receiver_context = context
+    def set_adapter(self, adapter, context):
+        self.adapter_class = adapter
+        self.adapter_context = context
 
     def get_content(self):
         templates_path = os.path.join(os.path.dirname(__file__), 'templates')
@@ -81,5 +73,5 @@ class Capture(object):
         self.extend_template_context()
         content = self.get_content()
         message = self.template_context['message']
-        self.receiver_class.send_exception(content, message, **self.receiver_context)
+        self.adapter_class.send_exception(content, message, **self.adapter_context)
 

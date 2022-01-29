@@ -1,6 +1,7 @@
 """
-Email Receiver class
+Email Adapter class
 """
+from adapters.base import BaseAdapter
 
 import os
 import smtplib
@@ -10,7 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-class EmailReceiver(object):
+class EmailReceiver(BaseAdapter):
     """
     Receiver Class for sending text and html emails
 
