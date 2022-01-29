@@ -1,8 +1,5 @@
 
-import os, sys, socket, traceback
-
-# third-party imports
-from jinja2 import Environment, FileSystemLoader
+import traceback
 
 
 class Capture(object):
@@ -14,7 +11,7 @@ class Capture(object):
     catching an exception, which could be very useful for debugging
     the code.
 
-    sys.exc_info() => (type(exc_info), exc_info, exc_info.__traceback__)
+    type(exception), str(exception), exception.__traceback__ = sys.exc_info()
     """
 
     def __init__(self, adapter_class=None, adapter_context=None):
@@ -43,7 +40,6 @@ class Capture(object):
         message = traceback.format_exception_only(self.exc_type, self.exc_value)
         message = "".join(message)
         self.template_context = {
-            "server_ip": self.get_server_ip(),
             "stack": stack,
             "message": message,
         }
@@ -51,27 +47,22 @@ class Capture(object):
     def extend_template_context(self, **kwargs):
         self.template_context.update(kwargs)
 
-    def extract_exception(self):
-        exc_type, exc_value, exc_tb = sys.exc_info()
-        self.exc_type = exc_type
-        self.exc_value = exc_value
-        self.exc_tb = exc_tb
+    def extract(self, excp):
+        """Method to extract the type, value and traceback of the exception"""
+        self.exc_type = type(excp)
+        self.exc_value = str(excp)
+        self.exc_tb = excp.__traceback__
 
     def set_adapter(self, adapter, context):
         self.adapter_class = adapter
         self.adapter_context = context
 
-    def get_content(self):
-        templates_path = os.path.join(os.path.dirname(__file__), 'templates')
-        jinja_env = Environment(loader=FileSystemLoader(templates_path))
-        template = jinja_env.get_template('alert.html')
-        return template.render(**self.template_context)
+    def push(self, excp):
+        if excp is None or not isinstance(excp, BaseException):
+            assert "Object passed as an argument is not an Exception"
 
-    def register_exception(self):
-        self.extract_exception()
+        self.extract(excp)
         self.compile()
         self.extend_template_context()
-        content = self.get_content()
-        message = self.template_context['message']
-        self.adapter_class.send_exception(content, message, **self.adapter_context)
+        self.adapter_class.send_exception(self.template_context, **self.adapter_context)
 

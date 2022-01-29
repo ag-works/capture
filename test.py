@@ -3,10 +3,12 @@ from capture import Capture
 from adapters.emailer import EmailAdapter
 
 
+capture = Capture()
 EMAIL_ADAPTER_PROPERTIES = {
     'from_email': '<email-address>',
     'recipients': '<email-address>',
 }
+capture.set_adapter(EmailAdapter, EMAIL_ADAPTER_PROPERTIES)
 
 
 class TestOne(object):
@@ -22,10 +24,8 @@ class TestOne(object):
     def do():
         try:
             TestOne.divide(10000, 8)
-        except:
-            capture = Capture()
-            capture.setup_receiver(EmailAdapter, EMAIL_ADAPTER_PROPERTIES)
-            capture.register_exception()
+        except Exception as ex:
+            capture.push(ex)
 
 
 if __name__ == '__main__':
