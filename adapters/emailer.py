@@ -11,7 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-class EmailReceiver(BaseAdapter):
+class EmailAdapter(BaseAdapter):
     """
     Receiver Class for sending text and html emails
 
@@ -66,6 +66,6 @@ class EmailReceiver(BaseAdapter):
         assert 'from_email' in kwargs, "From address is mandatory for Email Receiver"
         assert 'recipients' in kwargs, "Recipients is mandatory for Email Receiver"
 
-        email_sender = EmailReceiver(**smtp_settings)
+        email_sender = EmailAdapter(**smtp_settings)
         email_sender.send_email(kwargs['from_email'], kwargs['recipients'], message,
                                 content, is_html=True)
