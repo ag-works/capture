@@ -21,8 +21,10 @@ class Capture(object):
         self.exc_value = None
         self.exc_tb = None
 
-        # HTML template related properties
+        # HTML notification template related properties
+        self.custom_template = None
         self.template_context = dict()
+        self.template_context_extras = None
 
         # Adapter class and related properties
         self.adapter_class = adapter_class or ''
@@ -45,7 +47,7 @@ class Capture(object):
         }
 
     def extend_template_context(self, **kwargs):
-        self.template_context.update(kwargs)
+        self.template_context_extras = kwargs
 
     def extract(self, excp):
         """Method to extract the type, value and traceback of the exception"""
@@ -63,6 +65,7 @@ class Capture(object):
 
         self.extract(excp)
         self.compile()
-        self.extend_template_context()
+        if self.template_context_extras is not None:
+            self.template_context.update(self.template_context_extras)
         self.adapter_class.send_exception(self.template_context, **self.adapter_context)
 
