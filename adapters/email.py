@@ -11,6 +11,11 @@ import os.path
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+if sys.version_info.major == 2:
+    StringTypes = types.StringTypes
+else:
+    StringTypes = (str,)
+
 # Dependency imports
 try:
     from jinja2 import Environment, FileSystemLoader
@@ -61,7 +66,7 @@ class EmailAdapter(BaseAdapter):
     @staticmethod
     def prepare_message_object(from_email, recipients, subject, content, is_html=False):
         msg = MIMEMultipart()
-        if isinstance(recipients, types.StringTypes):
+        if isinstance(recipients, StringTypes):
             msg['To'] = recipients
         else:
             msg['To'] = ','.join(recipients)
