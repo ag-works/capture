@@ -43,7 +43,7 @@ class EmailAdapter(BaseAdapter):
 
     @staticmethod
     def get_content(context):
-        templates_path = os.path.join(os.path.dirname(__file__), 'templates')
+        templates_path = os.path.join(os.path.dirname(__file__), '..', 'templates')
         jinja_env = Environment(loader=FileSystemLoader(templates_path))
         template = jinja_env.get_template('alert.html')
         return template.render(**context)
