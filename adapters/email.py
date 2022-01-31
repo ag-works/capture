@@ -15,7 +15,7 @@ from email.mime.text import MIMEText
 try:
     from jinja2 import Environment, FileSystemLoader
 except:
-    print("Failed to import dependency module jinja2! Please insatll jinja2 package")
+    print("Failed to import dependency module jinja2! Please install jinja2 package")
     sys.exit(1)
 
 
