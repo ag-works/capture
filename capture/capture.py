@@ -52,7 +52,7 @@ class Capture(object):
     def extract(self, excp):
         """Method to extract the type, value and traceback of the exception"""
         self.exc_type = type(excp)
-        self.exc_value = str(excp)
+        self.exc_value = excp
         self.exc_tb = excp.__traceback__
 
     def set_adapter(self, adapter, context):
