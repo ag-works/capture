@@ -5,7 +5,7 @@ DESCRIPTION = 'Python package that captures exceptions and notify them'
 LONG_DESCRIPTION = 'Python package that captures exceptions and notify them'
 
 setup(
-    name="capture", 
+    name="capture-errors", 
     version=VERSION,
     author="Ashish Garg",
     author_email="ashish.garg@linux.com",
@@ -22,7 +22,7 @@ setup(
     classifiers= [
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
-        "License :: Apache-2.0 License",
+        "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
