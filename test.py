@@ -1,6 +1,6 @@
 from capture import Capture
 
-from adapters.email import EmailAdapter
+from capture.adapters.email import EmailAdapter
 
 
 capture = Capture()

@@ -1,7 +1,7 @@
 """
 Email Adapter class
 """
-from adapters.base import BaseAdapter
+from capture.adapters.base import BaseAdapter
 
 import os
 import sys
