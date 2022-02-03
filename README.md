@@ -42,7 +42,7 @@ try:
     while True:
         remainder = y % x 
         x -= 1
-except:
+except Exception as ex:
     capture.push(ex)
 ```
 
