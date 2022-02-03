@@ -1,6 +1,8 @@
 """
 Email Adapter class
 """
+from __future__ import absolute_import
+
 from capture.adapters.base import BaseAdapter
 
 import os
