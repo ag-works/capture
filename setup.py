@@ -1,8 +1,12 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.1' 
+# read the contents of your README file
+from pathlib import Path
+current_directory = Path(__file__).parent
+LONG_DESCRIPTION = (current_directory / "README.md").read_text()
+
+VERSION = '0.0.3'
 DESCRIPTION = 'Python package that captures exceptions and notify them'
-LONG_DESCRIPTION = 'Python package that captures exceptions and notify them'
 
 setup(
     name="capture-errors", 
@@ -11,11 +15,13 @@ setup(
     author_email="ashish.garg@linux.com",
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
+    long_description_content_type='text/markdown',
     include_package_data=True,
     packages=find_packages(),
-    install_requires=[],
+    install_requires=[
+        "Jinja2 >= 3.0",
+    ],
     extras_require={
-        "jinja2": [],
         "requests": [],
     },
     keywords=['python', 'exceptions', 'errors'],
