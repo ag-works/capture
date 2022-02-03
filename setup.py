@@ -1,9 +1,8 @@
 from setuptools import setup, find_packages
 
 # read the contents of your README file
-from pathlib import Path
-current_directory = Path(__file__).parent
-LONG_DESCRIPTION = (current_directory / "README.md").read_text()
+with open("README.md", "r") as fh:
+    LONG_DESCRIPTION = fh.read()
 
 VERSION = '0.0.3'
 DESCRIPTION = 'Python package that captures exceptions and notify them'
