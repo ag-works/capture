@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
 
-VERSION = '0.0.3'
+VERSION = '0.0.3-alpha'
 DESCRIPTION = 'Python package that captures exceptions and notify them'
 
 setup(
