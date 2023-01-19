@@ -49,4 +49,8 @@ except Exception as ex:
 ## Available Adapters
 
 * EmailAdapter
-
+* SlackAdapter (Coming Soon)
+* MarkDownAdapter (Coming Soon)
+* HtmlFileAdapter (Coming Soon)
+* GistAdapter (Coming Soon)
+* GoogleChatAdapter (Coming Soon)
